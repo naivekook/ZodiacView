@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ZodiacView.iml" filepath="$PROJECT_DIR$/ZodiacView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zodiacview/zodiacview.iml" filepath="$PROJECT_DIR$/zodiacview/zodiacview.iml" />
+    </modules>
+  </component>
+</project>

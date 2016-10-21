@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ZodiacView">
+        <attr name="zv_star_count" format="integer"/>
+        <attr name="zv_star_size_min" format="dimension"/>
+        <attr name="zv_star_size_max" format="dimension"/>
+        <attr name="zv_relation_size" format="dimension"/>
+        <attr name="zv_speed" format="float"/>
+        <attr name="zv_distance" format="integer"/>
+        <attr name="zv_color_bg" format="color"/>
+        <attr name="zv_color_star" format="color"/>
+        <attr name="zv_color_relation" format="color"/>
+    </declare-styleable>
+</resources>
