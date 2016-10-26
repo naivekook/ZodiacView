@@ -3,7 +3,7 @@ ZodiacView
 
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
-[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
+[![API](https://img.shields.io/badge/API-8%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
 
 This is an Android projects containing view with beautiful animation. Inspired by [Jordan Nelson](https://material.uplabs.com/posts/searching).
 
@@ -21,7 +21,7 @@ maven {
 
 Step 2: add this row to your dependencies
 ```groovy
-compile 'dev.tanakov:zodiacview:1.0'
+compile 'dev.tanakov:zodiacview:1.1'
 ```
 
 XML
