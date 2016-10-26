@@ -47,21 +47,24 @@ You must use the following properties in your XML to change your ZodiacView.
 * `app:zv_star_size_max`   (int)     -> default 20
 * `app:zv_star_size_min`   (int)     -> default 10
 * `app:zv_relation_size`   (int)     -> default 5
+* `app:zv_interaction_enabled`   (boolean)     -> default false
 
 JAVA
 -----
 
 ```java
-ZodiacView zodiacView = (ZodiacView)findViewById(R.id.yourZodiacView);
-zodiacView.setColorBackground(Color.parseColor("#16151f"));
-zodiacView.setColorRelation(Color.parseColor("#49348b"));
-zodiacView.setColorStar(Color.parseColor("#49348b"));
-zodiacView.setSpeed(0.7f);
-zodiacView.setDistance(200);
-zodiacView.setRelationSize(5);
-zodiacView.setStarSizeMin(10);
-zodiacView.setStarSizeMax(20);
-zodiacView.setStarCount(30);
+ZodiacView zodiacView = ZodiacView.with(this)
+	.colorBackground(Color.parseColor("#16151f"))
+	.colorRelation(Color.parseColor("#49348b"))
+	.colorStar(Color.parseColor("#49348b"))
+	.speed(0.7f)
+	.distance(200)
+	.relationSize(5)
+	.starSizeMin(10)
+	.starSizeMax(20)
+	.starCount(30)
+	.interactionEnabled(true)
+	.build();
 ```
 
 
