@@ -1,12 +1,12 @@
 /**
  * Copyright 10/20/16 Vladimir Tanakov
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,18 +16,21 @@
 
 package com.dev.tanakov.zodiacview;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
-public class ZodiacView extends View {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ZodiacView extends View implements View.OnTouchListener {
+
+    private static final String TAG = "ZodiacView";
 
     //region DEFAULT VALUES
 
@@ -40,6 +43,7 @@ public class ZodiacView extends View {
     private static final String DEFAULT_COLOR_BACKGROUND = "#16151f";
     private static final String DEFAULT_COLOR_STAR = "#49348b";
     private static final String DEFAULT_COLOR_RELATION = "#49348b";
+    private static final boolean DEFAULT_ITERACTION_ENABLED = false;
 
     //endregion
 
@@ -62,9 +66,12 @@ public class ZodiacView extends View {
     private int mColorStar = Color.parseColor(DEFAULT_COLOR_STAR);
     private int mColorRelation = Color.parseColor(DEFAULT_COLOR_RELATION);
 
-    public ZodiacView(Context context) {
+    private boolean mInteractionEnabled = DEFAULT_ITERACTION_ENABLED;
+
+    private Star mUserFinger;
+
+    private ZodiacView(Context context) {
         super(context);
-        init();
     }
 
     public ZodiacView(Context context, AttributeSet attrs) {
@@ -85,6 +92,7 @@ public class ZodiacView extends View {
         mColorBackground = a.getColor(R.styleable.ZodiacView_zv_color_bg, Color.parseColor(DEFAULT_COLOR_BACKGROUND));
         mColorStar = a.getColor(R.styleable.ZodiacView_zv_color_star, Color.parseColor(DEFAULT_COLOR_STAR));
         mColorRelation = a.getColor(R.styleable.ZodiacView_zv_color_relation, Color.parseColor(DEFAULT_COLOR_RELATION));
+        mInteractionEnabled = a.getBoolean(R.styleable.ZodiacView_zv_interaction_enabled, DEFAULT_ITERACTION_ENABLED);
 
         a.recycle();
 
@@ -103,17 +111,19 @@ public class ZodiacView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        for (int i = 0; i < mStarCount; i++) {
+        int starCount = mStars.size();
+
+        for (int i = 0; i < starCount; i++) {
             mStars.get(i).connectedStars.clear();
         }
 
-        for (int i = 0; i < mStarCount; i++) {
+        for (int i = 0; i < starCount; i++) {
             Star star = mStars.get(i);
             moveStar(star);
 
             canvas.drawCircle(star.x, star.y, star.size, mPaintStar);
 
-            for (int j = 0; j < mStarCount; j++) {
+            for (int j = 0; j < starCount; j++) {
                 Star refStar = mStars.get(j);
                 if (star == refStar || refStar.connectedStars.contains(star)) {
                     continue;
@@ -129,6 +139,30 @@ public class ZodiacView extends View {
         invalidate();
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        float x = motionEvent.getX();
+        float y = motionEvent.getY();
+
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mUserFinger = createStar();
+                mUserFinger.x = x;
+                mUserFinger.y = y;
+                mStars.add(mUserFinger);
+                break;
+            case MotionEvent.ACTION_UP:
+                mStars.remove(mUserFinger);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mUserFinger.x = x;
+                mUserFinger.y = y;
+                break;
+        }
+
+        return true;
+    }
+
     private void init() {
         setBackgroundColor(mColorBackground);
 
@@ -142,6 +176,10 @@ public class ZodiacView extends View {
         mPaintRelation.setStrokeWidth(mRelationSize);
         mPaintRelation.setStyle(Paint.Style.FILL);
         mPaintRelation.setAntiAlias(true);
+
+        if (mInteractionEnabled) {
+            setOnTouchListener(this);
+        }
     }
 
     private void createStars() {
@@ -190,42 +228,71 @@ public class ZodiacView extends View {
         canvas.drawLine(star.x, star.y, refStar.x, refStar.y, mPaintRelation);
     }
 
-    //region SETTERS
+    //region BUILDER
 
-    public void setStarCount(int count) {
-        mStarCount = count;
+    public static ZodiacBuilder with(Context context) {
+        return new ZodiacView(context).new ZodiacBuilder();
     }
 
-    public void setStarSizeMin(int size) {
-        mStarSizeMin = size;
-    }
+    public class ZodiacBuilder {
 
-    public void setStarSizeMax(int size) {
-        mStarSizeMax = size;
-    }
+        private ZodiacBuilder() {
+        }
 
-    public void setRelationSize(int size) {
-        mRelationSize = size;
-    }
+        public ZodiacView build() {
+            ZodiacView.this.init();
+            return ZodiacView.this;
+        }
 
-    public void setSpeed(float speed) {
-        mSpeed = speed;
-    }
+        public ZodiacBuilder starCount(int count) {
+            ZodiacView.this.mStarCount = count;
+            return this;
+        }
 
-    public void setDistance(int distance) {
-        mDistance = distance;
-    }
+        public ZodiacBuilder starSizeMin(int size) {
+            ZodiacView.this.mStarSizeMin = size;
+            return this;
+        }
 
-    public void setColorBackground(int bgColor) {
-        mColorBackground = bgColor;
-    }
+        public ZodiacBuilder starSizeMax(int size) {
+            ZodiacView.this.mStarSizeMax = size;
+            return this;
+        }
 
-    public void setColorStar(int starColor) {
-        mColorStar = starColor;
-    }
+        public ZodiacBuilder relationSize(int size) {
+            ZodiacView.this.mRelationSize = size;
+            return this;
+        }
 
-    public void setColorRelation(int relationColor) {
-        mColorRelation = relationColor;
+        public ZodiacBuilder speed(float speed) {
+            ZodiacView.this.mSpeed = speed;
+            return this;
+        }
+
+        public ZodiacBuilder distance(int distance) {
+            ZodiacView.this.mDistance = distance;
+            return this;
+        }
+
+        public ZodiacBuilder colorBackground(int bgColor) {
+            ZodiacView.this.mColorBackground = bgColor;
+            return this;
+        }
+
+        public ZodiacBuilder colorStar(int starColor) {
+            ZodiacView.this.mColorStar = starColor;
+            return this;
+        }
+
+        public ZodiacBuilder colorRelation(int relationColor) {
+            ZodiacView.this.mColorRelation = relationColor;
+            return this;
+        }
+
+        public ZodiacBuilder interactionEnabled(boolean interactionEnabled) {
+            ZodiacView.this.mInteractionEnabled = interactionEnabled;
+            return this;
+        }
     }
 
     //endregion

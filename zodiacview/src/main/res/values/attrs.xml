@@ -10,5 +10,6 @@
         <attr name="zv_color_bg" format="color"/>
         <attr name="zv_color_star" format="color"/>
         <attr name="zv_color_relation" format="color"/>
+        <attr name="zv_interaction_enabled" format="boolean"/>
     </declare-styleable>
 </resources>

@@ -21,9 +21,5 @@
     <com.dev.tanakov.zodiacview.ZodiacView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        app:zv_color_relation="@android:color/holo_orange_light"
-        app:zv_color_star="@android:color/holo_orange_light"
-        app:zv_speed="5"
-        app:zv_star_count="10"/>
+        android:layout_weight="1"/>
 </LinearLayout>

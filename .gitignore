@@ -36,6 +36,9 @@ captures/
 *.iml
 .idea/workspace.xml
 .idea/libraries
+.idea/codeStyleSettings.xml
+.idea/misc.xml
+.idea/encodings.xml
 
 # Keystore files
 *.jks
