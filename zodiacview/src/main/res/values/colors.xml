@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="zv_default_color_background">#16151f</color>
+    <color name="zv_default_color_star">#49348b</color>
+    <color name="zv_default_color_relation">#49348b</color>
+</resources>
