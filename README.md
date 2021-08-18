@@ -28,7 +28,7 @@ XML
 -----
 
 ```xml
-<com.dev.tanakov.zodiacview.ZodiacView
+<io.github.naivekook.zodiacview.ZodiacView
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 ```

@@ -5,7 +5,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="2"
-    tools:context="com.dev.tanakov.zodiacviewsample.MainActivity">
+    tools:context="io.github.naivekook.zodiacviewsample.MainActivity">
 
     <FrameLayout
         android:id="@+id/zodiac_container"
@@ -17,7 +17,7 @@
           android:layout_height="2dp"
           android:background="@android:color/white"/>
 
-    <com.dev.tanakov.zodiacview.ZodiacView
+    <io.github.naivekook.zodiacview.ZodiacView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>

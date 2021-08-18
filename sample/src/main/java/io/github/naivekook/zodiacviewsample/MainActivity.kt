@@ -1,10 +1,10 @@
-package com.dev.tanakov.zodiacviewsample
+package io.github.naivekook.zodiacviewsample
 
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.dev.tanakov.zodiacview.ZodiacConfig
-import com.dev.tanakov.zodiacview.ZodiacView
+import io.github.naivekook.zodiacview.ZodiacConfig
+import io.github.naivekook.zodiacview.ZodiacView
 
 class MainActivity : AppCompatActivity() {
 

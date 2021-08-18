@@ -1,4 +1,4 @@
-package com.dev.tanakov.zodiacview
+package io.github.naivekook.zodiacview
 
 import androidx.annotation.ColorRes
 

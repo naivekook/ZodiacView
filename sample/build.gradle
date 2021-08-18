@@ -7,7 +7,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.dev.tanakov.zodiacviewsample"
+        applicationId "io.github.naivekook.zodiacviewsample"
         minSdk 16
         targetSdk 31
         versionCode 1
